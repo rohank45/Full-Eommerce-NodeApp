@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node server.js"
+    "start": "node --experimental-modules --es-module-specifier-resolution=node server.js"
   },
   "keywords": [],
   "author": "rohan k",
