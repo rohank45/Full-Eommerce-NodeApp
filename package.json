@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce-backendapp",
+  "version": "1.0.0",
+  "description": "ecommerce backendapp using nodejs, expressjs, mongodb atlas and more",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node server.js"
+  },
+  "keywords": [],
+  "author": "rohan k",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
