@@ -22,6 +22,22 @@ app.use(
   })
 );
 
+//calling passport
+require("./passport/passport");
+
+const passport = require("passport");
+app.use(passport.initialize());
+// app.use(passport.session());
+
+//passport cookie session
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    maxAge: 1 * 24 * 60 * 60 * 1000,
+    keys: [process.env.PASSPORT_SECRET_KEY],
+  })
+);
+
 //swagger docs
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
@@ -34,15 +50,16 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //
 //### import USERs routes
 
-//home
-const home = require("./routers/userRoutes/home");
-app.use("/", home);
+//rendering home.ejs file
+app.get("/", (req, res) => {
+  res.render("home");
+});
 
 //register
 const signup = require("./routers/userRoutes/signup");
 app.use("/user", signup);
 
-//rendering ejs file
+//rendering signuptest.ejs file
 app.get("/signuptest", (req, res) => {
   res.render("postForm");
 });
@@ -163,6 +180,25 @@ app.use("/order", adminUpdateOrders);
 //admin delete order
 const adminDeleteOrder = require("./routers/orderRoutes/adminDeleteOrder");
 app.use("/order", adminDeleteOrder);
+
+//
+//### OAUTH-GOOGLE-LOGIN
+
+//login
+const authLogin = require("./routers/googleOauth20/authLogin");
+app.use("/oauth", authLogin);
+
+//login using google oauth
+const googleOauth = require("./routers/googleOauth20/googleOauth");
+app.use("/", googleOauth);
+
+//login using google oauth
+const googleProfile = require("./routers/googleOauth20/googleProfile");
+app.use("/", googleProfile);
+
+//logout using google oauth
+const authlogout = require("./routers/googleOauth20/authlogout");
+app.use("/", authlogout);
 
 //export app
 module.exports = app;
