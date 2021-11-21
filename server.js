@@ -1,22 +1,22 @@
-import express from "express";
+const dotenv = require("dotenv");
+dotenv.config();
 
-const app = express();
+const app = require("./app");
 
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
+//databse connected
+const dbConn = require("./config/database");
+dbConn();
 
-import path from "path";
-var swagger_path = path.resolve("./swagger.yaml");
-
-const swaggerDocument = YAML.load(swagger_path);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.get("/", (req, res) => {
-  res.status(200).send("<h1>hello, home page here</h1>");
+//cloudinary setup
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRETE,
 });
 
-const PORT = process.env.PORT || 5000;
-
+//listen server
+const { PORT } = process.env;
 app.listen(PORT, () => {
-  console.log("server started...");
+  console.log(`server started at ${PORT}...`);
 });

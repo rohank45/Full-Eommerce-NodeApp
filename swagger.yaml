@@ -1,1 +1,49 @@
 openapi: 3.0.0
+info:
+  title: Ecomm store - admin
+  description: Ecomm store for tshirts only - swagger
+  version: 1.1.0
+  contact:
+    email: ecommstore@admin.com
+    url: "http://ecommstore.com"
+
+servers:
+  - url: "{protocols}://localhost:5000/api/{versions}" 
+    description: localhost url 
+    variables: 
+      versions:
+        enum:
+          - v1
+          - v2
+        default: v1
+      protocols:
+        enum:
+          - http
+          - htpps
+        default: http
+      
+components:
+  securitySchemes:
+    cookieAuth:        
+      type: apiKey
+      in: cookie
+      name: jwtoken
+
+paths:
+  /api/v1:
+    get:
+      tags: 
+        - string
+      summary: returns a data from LCO
+      responses: 
+        200: 
+          description: All good SUCCESS
+          content: 
+            application/json:
+              schema:
+                type: string
+                example: "mystring"
+        400:
+          description: bad req 
+        500: 
+          description: Internal server error
