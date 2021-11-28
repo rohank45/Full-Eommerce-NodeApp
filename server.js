@@ -16,7 +16,6 @@ cloudinary.config({
 });
 
 //listen server
-const { PORT } = process.env;
-app.listen(PORT, () => {
-  console.log(`server started at ${PORT}...`);
+app.listen(process.env.PORT, () => {
+  console.log("server started...");
 });
