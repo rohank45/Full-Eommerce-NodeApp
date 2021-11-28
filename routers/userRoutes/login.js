@@ -34,7 +34,7 @@ router.post("/login", async (req, res, next) => {
       message: "Login successfully",
     });
   } catch (err) {
-    console.log(err);
+    return next(new Error(err));
   }
 });
 

@@ -47,7 +47,7 @@ router.post("/updateUserDetails", userAuth, async (req, res) => {
       message: "User details Changed successfully",
     });
   } catch (error) {
-    console.log(error);
+    return next(new Error(err));
   }
 });
 

@@ -19,7 +19,7 @@ router.get("/getOrder/:id", userAuth, async (req, res, next) => {
       order,
     });
   } catch (error) {
-    console.log(error);
+    return next(new Error(error));
   }
 });
 

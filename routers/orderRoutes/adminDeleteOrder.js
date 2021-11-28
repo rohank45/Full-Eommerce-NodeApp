@@ -18,7 +18,7 @@ router.delete(
         success: true,
       });
     } catch (error) {
-      console.log(error);
+      return next(new Error(error));
     }
   }
 );

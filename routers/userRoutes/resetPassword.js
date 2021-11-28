@@ -34,7 +34,7 @@ router.post("/resetPassword/:token", async (req, res, next) => {
       message: "Password changed successfully",
     });
   } catch (err) {
-    console.log(err);
+    return next(new Error(err));
   }
 });
 

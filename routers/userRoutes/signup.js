@@ -38,7 +38,7 @@ router.post("/signup", async (req, res, next) => {
       message: "Register successfully",
     });
   } catch (err) {
-    console.log(err);
+    return next(new Error(err));
   }
 });
 

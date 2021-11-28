@@ -42,10 +42,10 @@ router.post("/forgotPassword", async (req, res, next) => {
 
       await user.save({ validateBeforeSave: false });
 
-      console.log(error);
+      return next(new Error(error));
     }
   } catch (err) {
-    console.log(err);
+    return next(new Error(err));
   }
 });
 

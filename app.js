@@ -4,6 +4,8 @@ const app = express();
 //temp check
 app.set("view engine", "ejs");
 
+app.use(express.static("public"));
+
 //morgan middleware
 const morgan = require("morgan");
 app.use(morgan("tiny"));
@@ -27,7 +29,6 @@ require("./passport/passport");
 
 const passport = require("passport");
 app.use(passport.initialize());
-// app.use(passport.session());
 
 //passport cookie session
 const cookieSession = require("cookie-session");
@@ -58,15 +59,17 @@ app.get("/", (req, res) => {
 //register
 const signup = require("./routers/userRoutes/signup");
 app.use("/user", signup);
-
 //rendering signuptest.ejs file
-app.get("/signuptest", (req, res) => {
-  res.render("postForm");
+app.get("/register", (req, res) => {
+  res.render("postRegister");
 });
 
 //login
 const login = require("./routers/userRoutes/login");
 app.use("/user", login);
+app.get("/login", (req, res) => {
+  res.render("postLogin");
+});
 
 //logout
 const logout = require("./routers/userRoutes/logout");
@@ -75,22 +78,37 @@ app.use("/user", logout);
 //email sent forgot password
 const forgotPassword = require("./routers/userRoutes/forgotPassword");
 app.use("/user", forgotPassword);
+app.get("/forgot-password", (req, res) => {
+  res.render("forgotPass");
+});
 
 //reset password
 const resetPassword = require("./routers/userRoutes/resetPassword");
 app.use("/user", resetPassword);
+app.get("/reset-password", (req, res) => {
+  res.render("resetPass");
+});
 
 //profile page
 const userDashboard = require("./routers/userRoutes/userDashboard");
 app.use("/user", userDashboard);
+app.get("/profile", (req, res) => {
+  res.render("profilePage");
+});
 
 //change password
 const changePassword = require("./routers/userRoutes/changePassword");
 app.use("/user", changePassword);
+app.get("/change-pass", (req, res) => {
+  res.render("changePass");
+});
 
 //update details
 const updateUserDetails = require("./routers/userRoutes/updateUserDetails");
 app.use("/user", updateUserDetails);
+app.get("/edit-profile", (req, res) => {
+  res.render("editProfileDetails");
+});
 
 //ADMIN role
 const adminAllUsers = require("./routers/userRoutes/adminAllUsers");
@@ -106,6 +124,10 @@ app.use("/user", managerAllUsers);
 
 //
 //### import PRODUCTs Routes
+
+app.get("/products", (req, res) => {
+  res.render("products");
+});
 
 //add product
 const addProduct = require("./routers/productRoutes/adminAddProduct");

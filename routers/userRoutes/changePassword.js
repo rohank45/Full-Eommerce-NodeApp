@@ -34,7 +34,7 @@ router.post("/changePassword", userAuth, async (req, res) => {
       message: "Password Changed successfully",
     });
   } catch (error) {
-    console.log(error);
+    return next(new Error(error));
   }
 });
 

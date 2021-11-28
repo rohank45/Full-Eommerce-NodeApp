@@ -21,11 +21,8 @@ passport.use(
       callbackURL: process.env.OAUTH_GOOGLE_CALLBACK_URL,
     },
     (accessToken, refreshToken, profile, next) => {
-      console.log("myProfile", profile);
-
       googleOauthModel.findOne({ email: profile._json.email }).then((user) => {
         if (user) {
-          console.log("user alreday exits", user);
           next(null, user);
         } else {
           googleOauthModel
@@ -37,11 +34,10 @@ passport.use(
               // photo: profile.photos,
             })
             .then((user) => {
-              console.log("user registered successfully", user);
               next(null, user);
             })
             .catch((error) => {
-              console.log(error);
+              return next(new Error(error));
             });
         }
 

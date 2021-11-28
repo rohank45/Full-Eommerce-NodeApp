@@ -3,6 +3,8 @@ const router = express.Router();
 
 const passport = require("passport");
 
+//for login with google oauth 2.0
+
 router.get(
   "/auth/google",
   passport.authenticate("google", {

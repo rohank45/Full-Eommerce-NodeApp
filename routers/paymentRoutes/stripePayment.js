@@ -18,7 +18,7 @@ router.post("/stripePayment", userAuth, async (req, res, next) => {
       client_secret: paymentIntent.client_secret,
     });
   } catch (error) {
-    console.log(error);
+    return next(new Error(error));
   }
 });
 

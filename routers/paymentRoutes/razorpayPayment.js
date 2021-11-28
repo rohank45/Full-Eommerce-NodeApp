@@ -25,7 +25,7 @@ router.post("/razorpayPayment", userAuth, async (req, res, next) => {
       order: myOrder,
     });
   } catch (error) {
-    console.log(error);
+    return next(new Error(error));
   }
 });
 
