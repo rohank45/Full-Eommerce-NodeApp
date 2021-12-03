@@ -4,7 +4,7 @@ const userAuth = require("../../middlewares/userAuth");
 const User = require("../../models/user");
 const cookieToken = require("../../utils/cookieToken");
 
-router.post("/changePassword", userAuth, async (req, res) => {
+router.post("/changePassword", userAuth, async (req, res, next) => {
   try {
     const oldPassword = req.body.oldPassword;
     const newpassword = req.body.newPassword;
@@ -18,9 +18,8 @@ router.post("/changePassword", userAuth, async (req, res) => {
     const user = await User.findById(userID).select("+password");
 
     const isCorrectOldPassword = await user.isValidatePassword(oldPassword);
-
     if (!isCorrectOldPassword) {
-      return next(new Error("Old password is wrong"));
+      res.status(401).json({ message: "Old password is wrong!" });
     }
 
     user.password = newpassword;

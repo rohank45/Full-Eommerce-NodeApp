@@ -6,7 +6,7 @@ const userAuth = require("../../middlewares/userAuth");
 const User = require("../../models/user");
 const cookieToken = require("../../utils/cookieToken");
 
-router.post("/updateUserDetails", userAuth, async (req, res) => {
+router.post("/updateUserDetails", userAuth, async (req, res, next) => {
   try {
     const newData = {
       name: req.body.name,
@@ -14,7 +14,7 @@ router.post("/updateUserDetails", userAuth, async (req, res) => {
     };
 
     if (req.files) {
-      const user = User.findById(req.user.id);
+      const user = await User.findById(req.user.id);
 
       const imageID = user.photo.id;
       await cloudinary.v2.uploader.destroy(imageID);
@@ -47,7 +47,7 @@ router.post("/updateUserDetails", userAuth, async (req, res) => {
       message: "User details Changed successfully",
     });
   } catch (error) {
-    return next(new Error(err));
+    return next(new Error(error));
   }
 });
 
